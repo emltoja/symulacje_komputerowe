@@ -19,7 +19,7 @@ module AcceptReject
         while filled_count < N
             
             x = rand(sampled_dist, size)
-            
+            # mult = 2 do generowania rozkładu |N(0, 1)| z rozkładu N(0, 1). W innym przypadku mult = 1. 
             mask = c .* rand(size) .* pdf.(sampled_dist, x) .<= mult .* pdf.(destination_dist, x)
             
             filled_now    = sum(mask)

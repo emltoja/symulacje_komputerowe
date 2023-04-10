@@ -122,7 +122,7 @@ function ziggurat(sampled_dist :: Distribution, destination_pdf :: Function, c, 
     while filled_count < N
         
         x = rand(sampled_dist, size)
-        # Wartość CUg(X) zapisana do pamięci w celu zmniejszenia ilości obliczeń
+        
         Y = c .* rand(size) .* pdf.(sampled_dist, x) 
 
         indexes = findindexes(x, intervals)
