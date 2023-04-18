@@ -31,12 +31,13 @@ function generate(h :: Function, xrange :: Int, yrange :: Int, size :: Int)
     return samples
 end
 
+
+# ----------------------
+# GENEROWANIE ROZKŁADÓW
+# ----------------------
+
 cauchy(x) = 1/(1 + x^2)
 normal(x) =ℯ^(-x^2/2)
-
-# --------------
-# TESTOWANIE
-# --------------
 
 # Wygenerowanie próbki z rozkładu N(0, 1)
 normal_samples = generate(normal, 1, 1, 10000)
