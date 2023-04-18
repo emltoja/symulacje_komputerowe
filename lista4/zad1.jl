@@ -29,6 +29,7 @@ function generate(h :: Function, xrange :: Int, yrange :: Int, size :: Int)
     end
 
     return samples
+
 end
 
 
