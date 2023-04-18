@@ -4,6 +4,7 @@ using Distributions
 using HypothesisTests
 
 # Generowanie zmiennych losowych 
+# TODO: Wektoryzacja
 function generate(h :: Function, xrange :: Int, yrange :: Int)
 
     x = xrange * rand()                 # x ∈ [0, xrange]
