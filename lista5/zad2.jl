@@ -4,6 +4,7 @@ using LinearAlgebra
 using HypothesisTests
 using Distributions
 
+# Generowanie wielowymiarowych rozkładów normalnych
 function multivariate_normal(size :: Int, dim :: Int, covariance_matrix :: Matrix, means_vector :: Vector)
 
     result = Matrix{Float64}(undef, size, dim)
@@ -111,6 +112,7 @@ histogram2d(samples3d[:, 1], samples3d[:, 2], aspect_ratio=1, normalize = :pdf)
 histogram2d(samples3d[:, 1], samples3d[:, 3], aspect_ratio=1, normalize = :pdf)
 # Rzut na płaszczyznę YZ
 histogram2d(samples3d[:, 2], samples3d[:, 3], aspect_ratio=1, normalize = :pdf)
+
 
 # Testy statystyczne
 
