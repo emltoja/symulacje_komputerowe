@@ -57,14 +57,38 @@ function plot_trajectory(T, λ)
 
 end
 
+function proccess_distribution(tm, λ, sample_size)
+    
+    nts = [get_n(tm, λ) for _ in 1:sample_size]
+
+    histogram(
+        nts,
+        normalize=:probability,
+        color=:dodgerblue1,
+        label=L"Rozkład wartości $ N_{%$tm} $" * "\n" * L"Dla $ λ = %$λ $"    
+    )
+
+    plotting_range = 0:3*λ*tm
+
+    scatter!(
+        plotting_range,
+        pdf.(Poisson(λ*tm), plotting_range),
+        color=:orange,
+        label=L"Rozkład $ P(%$(λ*tm)) $"
+    )
+
+end
+
 plot_trajectory(10, 2)
 
-t = 3
-lambda = 3
+# t = 3
+# lambda = 3
 
-ns = [get_n(t, lambda) for _ in 1:100_000]
+# ns = [get_n(t, lambda) for _ in 1:100_000]
 
-histogram(ns, normalize=:probability, label="Rozkład wartości N($time) \n Dla λ = $lambda")
-scatter!(0:3*lambda*time, pdf.(Poisson(time*lambda), 0:3*lambda*time), label="Rozkład P($(lambda * time)")
+# histogram(ns, normalize=:probability, label="Rozkład wartości N($time) \n Dla λ = $lambda")
+# scatter!(0:3*lambda*t, pdf.(Poisson(t*lambda), 0:3*lambda*t), label="Rozkład P($(lambda * t)")
+
+proccess_distribution(4, 2, 100_000)
 
 ChisqTest(hcat(ns, rand(Poisson(time * lambda), length(ns))))
