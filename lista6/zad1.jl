@@ -1,6 +1,7 @@
 # Zadanie 1 Lista 6
 using Distributions
 using HypothesisTests
+using LaTeXStrings
 using Plots
 
 # Wygeneruj przedziały czasowe procesu poissona 
@@ -31,13 +32,37 @@ function get_n(t, λ)
     return n - 1
 end
 
-xs = poisson_proccess(10, 5)
-plot(xs, 0:length(xs)-1, linetype=:steppost)
+function plot_trajectory(T, λ)
 
-time = 3
+    time_intervals = poisson_proccess(T, λ)
+    nts = 0:length(time_intervals) - 1
+
+    plot(
+        title="Proces Poissona",
+        xlabel=L"t",
+        ylabel=L"N_t",
+        legend=nothing
+    )
+
+    # plotowanie schodków 
+    for i in 1:length(time_intervals) - 1
+        plot!(time_intervals[i:i+1], [nts[i], nts[i]], color=:dodgerblue1, lw=2, label=nothing)
+    end
+
+    # przedziały domknięte lewostronnie
+    scatter!(time_intervals[1:end-1], nts[1:end-1], markersize=3, markercolor=:dodgerblue1, label=nothing)
+
+    # otwarte prawostronnie 
+    scatter!(time_intervals[2:end], nts[1:end-1], markersize=3, markercolor=:white, label=nothing)
+
+end
+
+plot_trajectory(10, 2)
+
+t = 3
 lambda = 3
 
-ns = [get_n(time, lambda) for _ in 1:100_000]
+ns = [get_n(t, lambda) for _ in 1:100_000]
 
 histogram(ns, normalize=:probability, label="Rozkład wartości N($time) \n Dla λ = $lambda")
 scatter!(0:3*lambda*time, pdf.(Poisson(time*lambda), 0:3*lambda*time), label="Rozkład P($(lambda * time)")
