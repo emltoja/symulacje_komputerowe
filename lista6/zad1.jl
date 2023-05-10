@@ -37,6 +37,7 @@ function get_n(t, λ)
 
 end
 
+
 # Wykres trajektorii procesu Poissona 
 function plot_trajectory(T, λ)
 
@@ -81,6 +82,7 @@ function plot_trajectory(T, λ)
 
 end
 
+
 # Rozkład liczby zgłoszeń do czasu `tm`
 function proccess_distribution(tm, λ, sample_size)
     
@@ -107,8 +109,18 @@ function proccess_distribution(tm, λ, sample_size)
 end
 
 
+# Test Chi kwadrat z hipotezą zerową, że liczba zgłoszeń do danej chwili
+# pochodzi z rozkładu Poissona. 
+function test_for_poisson(tm, λ, sample_size)
+
+    nts = [get_n(tm, λ) for _ in 1:sample_size]
+    ChisqTest(hcat(nts, rand(Poisson(tm * λ), sample_size)))
+
+end
+
 
 
 
 plot_trajectory(10, 2)
 proccess_distribution(4, 2, 100_000)
+test_for_poisson(5, 3, 100_000)
