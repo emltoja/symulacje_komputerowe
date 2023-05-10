@@ -5,7 +5,7 @@ using LaTeXStrings
 using Plots
 
 
-# Wygeneruj przedziały czasowe procesu poissona 
+# Wygeneruj czasy oczekiwania procesu poissona 
 function poisson_proccess(T, λ)
     
     sum = 0 
