@@ -1,0 +1,5 @@
+generuj n ~ Pois(całka lambda od 0 do T) 
+jeśli n = 0 STOP
+generuj v1, ..., vn iid o gęstości f = lambda / całka z lambda od 0 do T (metoda akceptacji odrzucenia)
+Sortuj v
+zwróć v 
