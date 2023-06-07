@@ -3,23 +3,32 @@
 # Mieszany proces Poissona 
 # Losowa miara Poissonowska 
 
-using Distributions
+using Distributions: Poisson
+using StatsBase: countmap
 using Plots 
-using StatsBase
 using Graphs
 using GraphPlot
 
+
+# Losowa miara poissona określona na zbiorze dyskretnym 
+# |Ω| = #Ω
 function discrete_poisson_measure(Ω, λ)
     
     N_Ω = rand(Poisson(λ * length(Ω)))
     result = rand(Ω, N_Ω)
     cntmap = countmap(result)
+
+    # Histogram wystąpień danych wartości z Ω w result 
     freqs = [get(cntmap, key, 0) for key in Ω]
+
+    # Przedstawienie wyniku na grafie 
     gplot(path_graph(length(Ω)), nodelabel=freqs, layout=circular_layout)
 
-    # bar(countmap(result), legend=nothing)
 end
 
+
+# Losowa miara poissona określona na sześcianie
+# |Ω| = a³
 function cube_poisson_measure(a, λ)
 
     omega_measure = a^3
@@ -28,7 +37,14 @@ function cube_poisson_measure(a, λ)
     result = a * rand(N_Ω, 3)
 
 
-    scatter3d(result[:,1], result[:,2], result[:,3], legend=nothing)
+    scatter3d(
+        result[:,1], result[:,2], result[:,3], 
+        legend=nothing,
+        title="Wylosowane wartości z szceścianu"    
+    )
+
+
+    # Krawędzie sześcianu
     plot3d!([0, 0], [0, 0], [0, a], color=:red)
     plot3d!([0, 0], [0, a], [0, 0], color=:red)
     plot3d!([0, a], [0, 0], [0, 0], color=:red)
@@ -46,6 +62,8 @@ function cube_poisson_measure(a, λ)
 end
 
 
+# Losowa miara poissona określona na kole
+# |Ω| = πr²
 function circle_poisson_measure(r, λ)
 
     omega_measure = π * r^2
@@ -70,20 +88,25 @@ function circle_poisson_measure(r, λ)
 
 
     scatter(points[:, 1], points[:, 2], aspect_ratio=:equal, legend=nothing)
-    plot!(r .* cos.(0:0.01:2π), r .* sin.(0:0.01:2π), color=:red, lw=3)
+    
+    # Brzeg koła 
+    plot!(
+        r .* cos.(0:0.01:2π),
+        r .* sin.(0:0.01:2π),
+        color=:red,
+        lw=3
+    )
 
 end
 
-Ω = 1:20
-λ = 30
 
-discrete_poisson_measure(Ω, λ)
+Ω = 1:20
+λ = 5
+
+discrete_poisson_measure(1:20, 5)
 
 
 cube_poisson_measure(10, 1)
 
 
 circle_poisson_measure(10, 10)
-
-g = path_graph(9)
-gplot(g, nodelabel=)
