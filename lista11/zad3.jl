@@ -2,6 +2,7 @@
 # Prawo iterowanego logarytmu
 using Plots
 
+# Wielowymiarowy ruch Browna
 function brown(times, dim)
 
     Δts = diff(times)
@@ -17,14 +18,14 @@ function brown(times, dim)
 
 end
 
-
+# Przedstawienie prawa iterowanego logarytmu na wykresie
 function plot_lil(times)
 
     upper_limit = sqrt.(2times .* log.(log.(times)))
 
     plot(brown(times, 1), label=nothing)
-    plot!(upper_limit, label=nothing)
-    plot!(-upper_limit, label=nothing)
+    plot!(upper_limit, label=nothing)   # supremum
+    plot!(-upper_limit, label=nothing)  # infimum
 
 end
 
