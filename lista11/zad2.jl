@@ -1,11 +1,12 @@
 # Lista 11 Zadanie 2
-# Estymacja błędu średniokwadratowego
+# Estymacja odchylenia średniokwadratowego
 using Plots
 
+# Wielowymiarowy ruch Browna
 function brown(times, dim)
 
     Δts = diff(times)
-    pushfirst!(Δts, times[1])
+    pushfirst!(Δts, 0)
 
     incs = randn(length(times), dim)
 
@@ -17,6 +18,7 @@ function brown(times, dim)
 
 end
 
+# Wektor E[X^2(t)] dla t z times
 function mse(times, n)
 
     accum = zeros(length(times))
@@ -28,7 +30,7 @@ function mse(times, n)
     return accum ./ n
 end
 
-
+# Wykres odchyleń średniokwadratowych
 function plot_mse(times, n)
     scatter(
         times,
