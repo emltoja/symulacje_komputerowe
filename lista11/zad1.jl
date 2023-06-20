@@ -23,4 +23,6 @@ function plot_brown(times, n)
 end
 
 
-
+plot_brown(1:0.1:100, 1)
+plot_brown(1:0.1:100, 2)
+plot_brown(1:0.1:100, 3)
